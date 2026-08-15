@@ -8,7 +8,7 @@ connectDB();
 
 // तुमच्या Vercel फ्रंटएंडचा URL इथे स्पष्टपणे नमूद करा
 const allowedOrigins = [
-  'https://helpdesk-frontend-flame.vercel.app', // तुमच्या ब्राउझरच्या एड्रेस बारमधील सध्याचा URL
+  'https://helpdesk-frontend-rjpf.vercel.app', // तुमचा सध्याचा Vercel URL
   'http://localhost:5173'
 ];
 
