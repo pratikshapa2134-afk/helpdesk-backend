@@ -3,11 +3,7 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors({
-  origin: "https://helpdesk-frontend-dabcxqion-bpp5.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+app.use(cors());
 
 app.use(express.json());
 
