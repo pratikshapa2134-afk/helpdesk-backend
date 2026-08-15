@@ -6,15 +6,8 @@ const connectDB = require('./config/db');
 const app = express();
 connectDB();
 
-// सर्व ओरिजिन्स आणि प्रीफ्लाइट रिक्वेस्ट्सना परवानगी देण्यासाठी
-app.use(cors({
-  origin: '*',
-  credentials: true,
-  optionSuccessStatus: 200
-}));
-
-app.options('*', cors()); // Preflight request साठी महत्त्वाची ओळ
-
+// Enable CORS for all routes and origins safely
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', require('./routes/authRoutes'));
