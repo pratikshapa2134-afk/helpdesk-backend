@@ -1,44 +1,35 @@
-const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
-
-const connectDB = require("./config/db");
-
-const authRoutes = require("./routes/authRoutes");
-const ticketRoutes = require("./routes/ticketRoutes");
-const categoryRoutes = require("./routes/categoryRoutes");
-const dashboardRoutes = require("./routes/dashboardRoutes");
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
+const connectDB = require('./config/db');
 
 const app = express();
-
-// Database
 connectDB();
 
-// CORS
-app.use(
-  cors({
-    origin: "https://YOUR-FRONTEND-URL.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// तुमच्या Vercel फ्रंटएंडचा URL इथे स्पष्टपणे नमूद करा
+const allowedOrigins = [
+  'https://helpdesk-frontend-flame.vercel.app', // तुमच्या ब्राउझरच्या एड्रेस बारमधील सध्याचा URL
+  'http://localhost:5173'
+];
 
-// Body parser
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
-// Test
-app.get("/", (req, res) => {
-  res.send("API is running");
-});
-
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/tickets", ticketRoutes);
-app.use("/api/categories", categoryRoutes);
-app.use("/api/dashboard", dashboardRoutes);
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/categories', require('./routes/categoryRoutes'));
+app.use('/api/tickets', require('./routes/ticketRoutes'));
 
 const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
