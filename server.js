@@ -6,9 +6,9 @@ const connectDB = require('./config/db');
 const app = express();
 connectDB();
 
-// तुमच्या Vercel फ्रंटएंडचा URL इथे स्पष्टपणे नमूद करा
+// CORS configuration supporting your Vercel frontend
 const allowedOrigins = [
-  'https://helpdesk-frontend-rjpf.vercel.app', // तुमचा सध्याचा Vercel URL
+  'https://helpdesk-frontend-rjpf.vercel.app',
   'http://localhost:5173'
 ];
 
