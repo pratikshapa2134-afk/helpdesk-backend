@@ -3,7 +3,13 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://helpdesk-frontend-dabcxqion-bpp5.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
 
@@ -11,6 +17,7 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
+// Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/tickets", require("./routes/ticketRoutes"));
 
