@@ -17,7 +17,6 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-// Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/tickets", require("./routes/ticketRoutes"));
 
