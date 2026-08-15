@@ -6,15 +6,10 @@ const connectDB = require('./config/db');
 const app = express();
 connectDB();
 
-// CORS configuration supporting your Vercel frontend
-const allowedOrigins = [
-  'https://helpdesk-frontend-rjpf.vercel.app',
-  'http://localhost:5173'
-];
-
+// सर्व .vercel.app युआरएल आणि लोकलहोस्टला परवानगी देण्यासाठी
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    if (!origin || origin.endsWith('.vercel.app') || origin.startsWith('http://localhost:')) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
