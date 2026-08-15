@@ -1,22 +1,18 @@
 const express = require('express');
-const cors = require('cors'); // 1. ha package install aahe na? npm i cors
-const mongoose = require('mongoose');
-const authRoutes = require('./routes/authRoutes');
-const ticketRoutes = require('./routes/ticketRoutes');
-
+const cors = require('cors');
 const app = express();
 
-// 2. HA CORS CODE TAK - SARVAT VAR
+// HA CODE SARVAT IMPORTANT AAHE
 app.use(cors({
-  origin: 'https://helpdesk-frontend-flame.vercel.app', // Tuzha Vercel cha URL
-  credentials: true
+  origin: ["https://helpdesk-frontend-flame.vercel.app", "http://localhost:5173"],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"]
 }));
 
 app.use(express.json());
 
-// 3. Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/tickets', ticketRoutes);
+// ... baki tujhe routes
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/tickets', require('./routes/ticketRoutes'));
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+app.listen(process.env.PORT || 5000);
