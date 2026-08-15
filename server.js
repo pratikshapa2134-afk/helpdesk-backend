@@ -6,13 +6,14 @@ const connectDB = require('./config/db');
 const app = express();
 connectDB();
 
-// CORS configuration to allow all origins
+// सर्व ओरिजिन्स आणि प्रीफ्लाइट रिक्वेस्ट्सना परवानगी देण्यासाठी
 app.use(cors({
   origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  credentials: true,
+  optionSuccessStatus: 200
 }));
+
+app.options('*', cors()); // Preflight request साठी महत्त्वाची ओळ
 
 app.use(express.json());
 
