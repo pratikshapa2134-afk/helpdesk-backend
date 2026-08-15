@@ -1,13 +1,27 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
+
 const app = express();
 
-app.use(cors()); // Saglyanna permission
+app.use(cors({
+  origin: "https://helpdesk-frontend-dabcxqion-bpp5.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
+app.options("*", cors());
+
 app.use(express.json());
 
-app.get('/', (req,res) => res.send('API is running')); // Test sathi
+app.get("/", (req, res) => {
+  res.send("API is running");
+});
 
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/tickets', require('./routes/ticketRoutes'));
+app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/tickets", require("./routes/ticketRoutes"));
 
-app.listen(process.env.PORT || 5000, () => console.log('Server running'));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
